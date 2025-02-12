@@ -1,0 +1,19 @@
+{
+    "C_Cpp.intelliSenseEngine": "Tag Parser",
+    "files.associations": {
+        "Test-vector.C": "cpp",
+        "vector": "cpp",
+        "rhoSimpleCondensationFoam.C": "cpp",
+        "momentumError.C": "cpp",
+        "CelikEtaIndex.C": "cpp",
+        "constrainHbyA.C": "cpp",
+        "schemesLookup.C": "cpp",
+        "FixedValueConstraint.C": "cpp",
+        "CMULESTemplates.C": "cpp",
+        "tolerances.C": "cpp",
+        "numbers": "cpp",
+        "multiphaseInterSystem.C": "cpp",
+        "EddyDiffusivity.C": "cpp",
+        "Stokes.C": "cpp"
+    }
+}

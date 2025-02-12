@@ -27,22 +27,71 @@ Application
     rhoSimpleCondensationFoam
 
 Description
+    Steady-state solver for condensing, turbulent flows.
 
 \*---------------------------------------------------------------------------*/
 
+
 #include "fvCFD.H"
+#include "fluidThermo.H"
+#include "turbulentFluidThermoModel.H"
+#include "simpleControl.H"
+#include "pressureControl.H"
+#include "fvOptions.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 int main(int argc, char *argv[])
 {
-    #include "setRootCase.H"
+    argList::addNote
+    (
+        "Steady-state solver for compressible turbulent flow."
+    );
+
+    #include "postProcess.H"
+
+    Info << "Hello" << endl;
+
+    #include "addCheckCaseOptions.H"
+    #include "setRootCaseLists.H"
     #include "createTime.H"
+    #include "createMesh.H"
+    #include "createControl.H"
+    #include "createFields.H"
+    #include "createFieldRefs.H"
+    #include "initContinuityErrs.H"
+
+    turbulence->validate();
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-    Info<< nl;
-    runTime.printExecutionTime(Info);
+    Info<< "\nStarting time loop\n" << endl;
+
+    while (simple.loop())
+    {
+        Info<< "Time = " << runTime.timeName() << nl << endl;
+
+        // Pressure-velocity SIMPLE corrector
+        #include "UEqn.H"
+        #include "EEqn.H"
+
+        if (simple.consistent())
+        {
+            #include "pcEqn.H"
+        }
+        else
+        {
+            #include "pEqn.H"
+        }
+
+        turbulence->correct();
+
+        #include "waterEquations.H"
+
+        runTime.write();
+
+        runTime.printExecutionTime(Info);
+    }
 
     Info<< "End\n" << endl;
 
