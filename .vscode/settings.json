@@ -20,6 +20,7 @@
         "basicThermo.C": "cpp",
         "dimensionSets.C": "cpp",
         "cmath": "cpp",
-        "complex": "cpp"
+        "complex": "cpp",
+        "*.tcc": "cpp"
     }
 }

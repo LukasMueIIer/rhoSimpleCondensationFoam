@@ -35,6 +35,7 @@ fvOptions.correct(chiVapour);
 //calculate local saturation
 
 //Update Saturation Pressure
+Info << "Updating Saturation pressures " << nl << endl;
 pSaturationVapour = 
 pow(-7.90298*(fracT/T-1) 
 +  5.02808 * log10(fracT/T)
@@ -44,8 +45,12 @@ pow(-7.90298*(fracT/T-1)
 
 //Update Vapour Pressure
 
+Info << "Updating Vapour Pressures" << nl << endl;
+
 pVapour = rho * chiVapour * RVapour * T;
 
 //Update Saturation
+
+Info << "Updating Saturations" << nl << endl;
 
 satVapour = pVapour / pSaturationVapour;

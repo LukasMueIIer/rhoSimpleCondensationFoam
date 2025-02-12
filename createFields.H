@@ -94,6 +94,7 @@ volScalarField pSaturationVapour
 
 dimensionedScalar RVapour("RVapour",dimGasConstant,461.6); //Specific Gas Konstant of the Water Vapour Phase 
 
+Info << "Creating Vapour Pressure Field" << nl << endl;
 volScalarField pVapour
 (
     IOobject
@@ -106,6 +107,8 @@ volScalarField pVapour
     ),
     rho * chiVapour * RVapour * T
 );
+
+Info << "Creating saturation Field" << nl << endl;
 
 volScalarField satVapour
 (
