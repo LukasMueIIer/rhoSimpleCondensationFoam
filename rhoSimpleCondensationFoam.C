@@ -45,12 +45,11 @@ int main(int argc, char *argv[])
 {
     argList::addNote
     (
-        "Steady-state solver for compressible turbulent flow."
+        "Steady-state solver for compressible turbulent wet flow that can feature condensation."
     );
 
     #include "postProcess.H"
 
-    Info << "Hello" << endl;
 
     #include "addCheckCaseOptions.H"
     #include "setRootCaseLists.H"

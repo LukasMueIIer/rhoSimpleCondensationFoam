@@ -14,6 +14,12 @@
         "numbers": "cpp",
         "multiphaseInterSystem.C": "cpp",
         "EddyDiffusivity.C": "cpp",
-        "Stokes.C": "cpp"
+        "Stokes.C": "cpp",
+        "fvOptions.C": "cpp",
+        "fluidThermo.C": "cpp",
+        "basicThermo.C": "cpp",
+        "dimensionSets.C": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp"
     }
 }
