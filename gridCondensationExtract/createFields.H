@@ -73,3 +73,14 @@ volScalarField satWater
 
 fieldList.append(&satWater);
 
+Info << "Loaded all fields" << nl << endl;
+
+List<List<scalar>> exportList; //List that holds all the lists that then contain the field values
+
+for(label i = 0; i < 3; ++i){ //List for each coordinate scalar
+    exportList.append(List<scalar>());
+}
+
+forAll(fieldList,i){ //List for each of the fields
+    exportList.append(List<scalar>());
+}

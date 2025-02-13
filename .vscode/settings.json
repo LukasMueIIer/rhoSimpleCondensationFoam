@@ -23,6 +23,7 @@
         "complex": "cpp",
         "*.tcc": "cpp",
         "ReynoldsAnalogy.C": "cpp",
-        "gridCondensationExtract.C": "cpp"
+        "gridCondensationExtract.C": "cpp",
+        "ostream": "cpp"
     }
 }

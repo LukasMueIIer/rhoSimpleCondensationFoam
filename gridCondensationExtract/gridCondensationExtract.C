@@ -48,6 +48,10 @@ int main(int argc, char *argv[])
     #include "readGridInfo.H"
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+    
+    Info << "Looping over and extracting values " << nl << endl;
+
+    
 
     Info<< nl;
     runTime.printExecutionTime(Info);

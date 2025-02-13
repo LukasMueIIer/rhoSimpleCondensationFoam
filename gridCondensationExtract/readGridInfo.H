@@ -35,3 +35,7 @@ label stepsDirection2(gridResolution["stepsDirection2"]);
 
 Info << "With a resolution of " << stepsDirection1 << " steps in first direction" << endl;
 Info << "and " << stepsDirection2 << " steps in the second direction" << endl;
+
+// calculate the physical step size
+vector delta1 = (direction1 - origin) / scalar(stepsDirection1 - 1);
+vector delta2 = (direction2 - origin) / scalar(stepsDirection2 - 1);
