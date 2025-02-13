@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
                 for (label n = 3; n < exportList.size(); ++n){
                     scalar cellValue = fieldList[n-3]->field()[cellID];
                     List<scalar>& fieldPointer = exportList[n];
-                    fieldPointer.append(test); //append only the scalar value
+                    fieldPointer.append(cellValue); //append only the scalar value
                 }
             }
         }
@@ -78,6 +78,8 @@ int main(int argc, char *argv[])
     Info << "Done with value extraction" << nl << endl;
 
     Info << "Writing to File" << nl << endl;
+
+    #include "writeToFile.H"
 
     Info<< nl;
     runTime.printExecutionTime(Info);
