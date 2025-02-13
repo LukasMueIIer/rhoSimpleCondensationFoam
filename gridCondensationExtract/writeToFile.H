@@ -11,9 +11,9 @@ outputFilePtr.reset(new OFstream(outputDir/"customOutputFile.dat"));
 
 Info << "Printing fileheader " << nl << endl;
 //print Header
-outputFilePtr() << "x, y, z";
+outputFilePtr() << "x,y,z";
 forAll(fieldList,fieldID){
-    outputFilePtr() << ", " << fieldList[fieldID]->name();
+    outputFilePtr() << "," << fieldList[fieldID]->name();
 };
 outputFilePtr() << endl;
 
@@ -28,7 +28,7 @@ for(label i = 0; i < cellCount; ++i){
     forAll(exportList,exportID){
         //dont write the comma infront at first entry
         if(!first){
-            outputFilePtr() << ", ";
+            outputFilePtr() << ",";
         }else{
             first = false;
         }
