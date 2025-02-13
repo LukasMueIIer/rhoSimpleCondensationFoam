@@ -21,6 +21,7 @@
         "dimensionSets.C": "cpp",
         "cmath": "cpp",
         "complex": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "ReynoldsAnalogy.C": "cpp"
     }
 }

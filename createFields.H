@@ -75,11 +75,11 @@ volScalarField& T = thermo.T();
 
 dimensionedScalar fracT("fractTvapour",dimTemperature,373.16); //A often used Temperature value for the calculation of saturation pressure
 
-volScalarField pSaturationVapour
+volScalarField pSaturationWater
 (
     IOobject
     (
-        "pSaturationVapour",
+        "pSaturationWater",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
@@ -110,17 +110,17 @@ volScalarField pVapour
 
 Info << "Creating saturation Field" << nl << endl;
 
-volScalarField satVapour
+volScalarField satWater
 (
     IOobject
     (
-        "satVapour",
+        "satWater",
         runTime.timeName(),
         mesh,
         IOobject::NO_READ,
         IOobject::AUTO_WRITE
     ),
-    pVapour / pSaturationVapour
+    pVapour / pSaturationWater
 );
 #include "createMRF.H"
 #include "createFvOptions.H"

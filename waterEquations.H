@@ -36,7 +36,7 @@ fvOptions.correct(chiVapour);
 
 //Update Saturation Pressure
 Info << "Updating Saturation pressures " << nl << endl;
-pSaturationVapour = 
+pSaturationWater = 
 pow(-7.90298*(fracT/T-1) 
 +  5.02808 * log10(fracT/T)
 - 1.3816e-7 * (pow(10,11.344*(1-T/fracT)) - 1)
@@ -53,4 +53,4 @@ pVapour = rho * chiVapour * RVapour * T;
 
 Info << "Updating Saturations" << nl << endl;
 
-satVapour = pVapour / pSaturationVapour;
+satWater = pVapour / pSaturationWater;
