@@ -19,6 +19,8 @@ HashTable<vector,word> gridShape(gridInfo.lookup("gridShape"));
 HashTable<label,word> gridResolution(gridInfo.lookup("gridResolution"));
 
 //setting up variables for later use
+Info << "Succesfully read dictionary " << nl << endl;
+
 vector origin(gridShape["origin"]);
 Info << "Grid origin at " << origin << endl;
 

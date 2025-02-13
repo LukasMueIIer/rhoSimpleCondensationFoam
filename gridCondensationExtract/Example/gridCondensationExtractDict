@@ -22,16 +22,16 @@ FoamFile
 //origin + direction1 + direction2
 
 gridShape
-{
-    origin  (1e-5 1e-5 1e-5); 
-    direction1 (3 0 0);
-    direction2 (0 1 0);
-}
+(
+    origin  (1e-5 1e-5 1e-5)
+    direction1 (3 0 0)
+    direction2 (0 1 0)
+);
 
 gridResolution
-{
-    stepsDirection1 10;
-    stepsDirection2 10;
-}
+(
+    stepsDirection1 10
+    stepsDirection2 10
+);
 
 // ************************************************************************* //
