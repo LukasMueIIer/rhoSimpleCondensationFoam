@@ -8,4 +8,5 @@ Developed on Foam v2406
 
 ## gridCondensationExtract
 is a custom postProcessing utility intended to write condensation related field values on a uniform grid. 
-They are output in a foam dictionary, so they can be read with pyfoam and used for further post processing steps
+They are output as a csv file that can be read with panda.
+Additional fields can easily be added by simply appending the createFields file.
