@@ -51,7 +51,33 @@ int main(int argc, char *argv[])
     
     Info << "Looping over and extracting values " << nl << endl;
 
-    
+    for (label i = 0; i < stepsDirection1; ++i){
+        for(label j = 0; j < stepsDirection2; ++j){
+            vector cellPos = origin + scalar(i) * delta1 + scalar(j) * delta2; //Postition of the cell
+
+            label cellID = mesh.findCell(cellPos);
+
+            if(cellID == -1){ //check if the point is in the mesh
+                Info << "WARNING!!! Probed point is outside of the mesh. Location " << cellPos << endl;
+            }else{
+                //Append Cordinates
+                exportList[0].append(mesh.C()[cellID].x());
+                exportList[1].append(mesh.C()[cellID].y());
+                exportList[2].append(mesh.C()[cellID].z());
+
+                //Append the remaining fields
+                for (label n = 3; n < exportList.size(); ++n){
+                    scalar cellValue = fieldList[n-3]->field()[cellID];
+                    List<scalar>& fieldPointer = exportList[n];
+                    fieldPointer.append(test); //append only the scalar value
+                }
+            }
+        }
+    }
+
+    Info << "Done with value extraction" << nl << endl;
+
+    Info << "Writing to File" << nl << endl;
 
     Info<< nl;
     runTime.printExecutionTime(Info);

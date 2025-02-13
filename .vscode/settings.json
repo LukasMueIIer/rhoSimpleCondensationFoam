@@ -24,6 +24,10 @@
         "*.tcc": "cpp",
         "ReynoldsAnalogy.C": "cpp",
         "gridCondensationExtract.C": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp",
+        "optional": "cpp",
+        "system_error": "cpp",
+        "regex": "cpp"
     }
 }
