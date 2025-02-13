@@ -43,6 +43,10 @@ int main(int argc, char *argv[])
 
     #include "createMesh.H"
 
+    #include "createFields.H"
+
+    #include "readGridInfo.H"
+
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< nl;
