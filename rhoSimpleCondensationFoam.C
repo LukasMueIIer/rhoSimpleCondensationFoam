@@ -74,6 +74,8 @@ int main(int argc, char *argv[])
         #include "UEqn.H"
         #include "EEqn.H"
 
+        Info << pow(1,10) << " " << pow(10,1) << endl;
+
         if (simple.consistent())
         {
             #include "pcEqn.H"
