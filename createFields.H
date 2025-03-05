@@ -159,7 +159,7 @@ IOdictionary speciesTransportDict
 (
     IOobject
     (
-        "thermophysicalProperties",
+        "transportProperties",
         mesh.time().constant(),
         mesh,
         IOobject::MUST_READ
@@ -182,7 +182,7 @@ scalar PrtVapourH2O
 (
     speciesTransportDict.get<scalar>
     (
-        "PrtH2O"
+        "PrtVapourH2O"
     )
 );
 
