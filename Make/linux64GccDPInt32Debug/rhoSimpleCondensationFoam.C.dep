@@ -932,5 +932,6 @@ pcEqn.H \
 $(WM_PROJECT_DIR)/src/finiteVolume/cfdTools/incompressible/continuityErrs.H \
 pEqn.H \
 waterEquations.H \
+speciesTransport.H \
 
 #END

@@ -66,6 +66,8 @@ int main(int argc, char *argv[])
 
     Info<< "\nStarting time loop\n" << endl;
 
+    thermo.rho();
+
     while (simple.loop())
     {
         Info<< "Time = " << runTime.timeName() << nl << endl;
@@ -88,6 +90,8 @@ int main(int argc, char *argv[])
         turbulence->correct();
 
         #include "waterEquations.H"
+
+        #include "speciesTransport.H"
 
         runTime.write();
 

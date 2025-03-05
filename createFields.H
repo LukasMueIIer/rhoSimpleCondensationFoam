@@ -56,13 +56,28 @@ autoPtr<compressible::turbulenceModel> turbulence
 
 dimensionedScalar initialMass = fvc::domainIntegrate(rho);
 
-Info<< "Createing Water Vapour Mass Fraction Field" << nl << endl;
+Info<< "Createing Air Mass Fraction Field" << nl << endl;
 
-volScalarField chiVapour
+volScalarField air
 (
     IOobject
     (
-        "chiVapour",
+        "air",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
+
+Info<< "Createing Water Vapour Mass Fraction Field" << nl << endl;
+
+volScalarField vapourH2O
+(
+    IOobject
+    (
+        "vapourH2O",
         runTime.timeName(),
         mesh,
         IOobject::MUST_READ,
@@ -72,6 +87,8 @@ volScalarField chiVapour
 );
 
 volScalarField& T = thermo.T();
+
+Info<< "Creating Saturation Pressure Field wrt. liquid Water" << nl << endl;
 
 dimensionedScalar fracT("fractTvapour",dimTemperature,373.16); //A often used Temperature value for the calculation of saturation pressure
 
@@ -89,7 +106,7 @@ volScalarField pSaturationWater
     +  5.02808 * log10(fracT/T)
     - 1.3816e-7 * (pow(10,11.344*(1-T/fracT)) - 1)
     + 8.1328e-3 * (pow(10,-3.49149*(fracT/T-1) ) - 1) 
-    + log10(dimensionedScalar(dimless,1013.246)) ,10) * dimensionedScalar("pressureFactor",dimPressure,1000)
+    + log10(dimensionedScalar(dimless,1013.246)) ,10) * dimensionedScalar("pressureFactor",dimPressure,100)
 );
 
 dimensionedScalar RVapour("RVapour",dimGasConstant,461.6); //Specific Gas Konstant of the Water Vapour Phase 
@@ -105,7 +122,7 @@ volScalarField pVapour
         IOobject::NO_READ,
         IOobject::AUTO_WRITE
     ),
-    rho * chiVapour * RVapour * T
+    rho * vapourH2O * RVapour * T
 );
 
 Info << "Creating saturation Field" << nl << endl;
@@ -122,5 +139,53 @@ volScalarField satWater
     ),
     pVapour / pSaturationWater
 );
+
+Info<< "Reading phase specific properties" << nl << endl;
+//Read species properties
+
+//First create the dictionaries
+IOdictionary speciesThermoDict
+(
+    IOobject
+    (
+        "thermophysicalProperties",
+        mesh.time().constant(),
+        mesh,
+        IOobject::MUST_READ
+    )
+);
+
+IOdictionary speciesTransportDict
+(
+    IOobject
+    (
+        "thermophysicalProperties",
+        mesh.time().constant(),
+        mesh,
+        IOobject::MUST_READ
+    )
+);
+
+
+//now read the properties
+dimensionedScalar DVapourH2O
+(
+    "DVapourH2O",
+    //dimViscosity,
+    speciesTransportDict.get<dimensionedScalar>
+    (
+        "DVapourH2O"
+    )
+); //Diffusivity for fricks law
+
+scalar PrtVapourH2O
+(
+    speciesTransportDict.get<scalar>
+    (
+        "PrtH2O"
+    )
+);
+
+
 #include "createMRF.H"
 #include "createFvOptions.H"

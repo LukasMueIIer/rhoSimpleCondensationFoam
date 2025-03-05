@@ -1,41 +1,6 @@
-//Water Vapour Properties
-
-scalar PrtVapour(0.7); //Turbulent Prandtl number
-
-dimensionedScalar DVapour("DVapour",dimViscosity,2.19E-5); //diffusivity for fricks law
-
-
-
-volScalarField DEff
-(
-    IOobject
-    (
-        "DEff",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    (turbulence->nut()/PrtVapour) + (DVapour) //Hand Calculated diffusivity
-);
-
-
-
-fvScalarMatrix transportVapour
-(
-    fvm::div(phi, chiVapour) - fvm::laplacian(DEff * rho, chiVapour)
-);
-
-transportVapour.relax();
-
-transportVapour.solve();
-
-fvOptions.correct(chiVapour);
-
-//calculate local saturation
-
 //Update Saturation Pressure
 Info << "Updating Saturation pressures " << nl << endl;
+
 pSaturationWater = 
 pow(10, -7.90298*(fracT/T-1) 
 +  5.02808 * log10(fracT/T)
@@ -47,7 +12,7 @@ pow(10, -7.90298*(fracT/T-1)
 
 Info << "Updating Vapour Pressures" << nl << endl;
 
-pVapour = rho * chiVapour * RVapour * T;
+pVapour = rho * vapourH2O * RVapour * T;
 
 //Update Saturation
 
