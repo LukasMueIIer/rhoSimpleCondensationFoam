@@ -1,17 +1,8 @@
-
 Info << "Calculating Species Transport " << nl << endl;
 //Calculate the Effective Diffusivity for the vapour
 volScalarField DEff
 (
-    IOobject
-    (
-        "DEff",
-        runTime.timeName(),
-        mesh,
-        IOobject::NO_READ,
-        IOobject::NO_WRITE
-    ),
-    (turbulence->nut()/PrtVapourH2O) + (DVapourH2O) //Hand Calculated diffusivity
+    (turbulence->nut() / PrtVapourH2O) + (DVapourH2O) //Hand Calculated diffusivity
 );
 
 //solve vapour transport equation
@@ -26,7 +17,16 @@ transportVapourH2O.solve();
 
 fvOptions.correct(vapourH2O);
 
+Info << vapourH2O;
 
-//Calculate the air fraction so we summ up to 1
-air = 1;
-air = air - vapourH2O;
+//Calculate the air fraction so we summ up to 1, correct any fraction that has a negative value
+forAll(mesh.C(),cellID)
+{
+    if(neg(vapourH2O[cellID]))
+    {
+        vapourH2O[cellID] = scalar(0.);
+    }
+    air[cellID] = scalar(1.); // - vapourH2O[cellID];
+}
+    
+Info << air << endl;

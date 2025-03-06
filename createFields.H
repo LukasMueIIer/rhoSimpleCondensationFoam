@@ -1,10 +1,24 @@
 Info<< "Reading thermophysical properties\n" << endl;
 
+//First create the dictionaries
+IOdictionary waterDict
+(
+    IOobject
+    (
+        "waterProperties",
+        mesh.time().constant(),
+        mesh,
+        IOobject::MUST_READ
+    )
+);
+
 autoPtr<fluidThermo> pThermo
 (
     fluidThermo::New(mesh)
 );
+
 fluidThermo& thermo = pThermo();
+
 thermo.validate(args.executable(), "h", "e");
 
 volScalarField& p = thermo.p();
@@ -58,33 +72,35 @@ dimensionedScalar initialMass = fvc::domainIntegrate(rho);
 
 Info<< "Createing Air Mass Fraction Field" << nl << endl;
 
-volScalarField air
-(
-    IOobject
-    (
-        "air",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+volScalarField& air = mesh.lookupObjectRef<volScalarField>(word("air"));
+
+
+//volScalarField air(
+//    IOobject
+//    (
+//        "air",
+//        runTime.timeName(),
+//        mesh,
+//        IOobject::MUST_READ,
+//        IOobject::AUTO_WRITE
+//    ),
+//    mesh
+//);
 
 Info<< "Createing Water Vapour Mass Fraction Field" << nl << endl;
 
-volScalarField vapourH2O
-(
-    IOobject
-    (
-        "vapourH2O",
-        runTime.timeName(),
-        mesh,
-        IOobject::MUST_READ,
-        IOobject::AUTO_WRITE
-    ),
-    mesh
-);
+volScalarField& vapourH2O = mesh.lookupObjectRef<volScalarField>(word("vapourH2O"));
+//volScalarField vapourH2O(
+//    IOobject
+//    (
+//        "vapourH2O",
+//        runTime.timeName(),
+//        mesh,
+//        IOobject::MUST_READ,
+//        IOobject::AUTO_WRITE
+//    ),
+//    mesh
+//);
 
 volScalarField& T = thermo.T();
 
@@ -143,44 +159,23 @@ volScalarField satWater
 Info<< "Reading phase specific properties" << nl << endl;
 //Read species properties
 
-//First create the dictionaries
-IOdictionary speciesThermoDict
-(
-    IOobject
-    (
-        "thermophysicalProperties",
-        mesh.time().constant(),
-        mesh,
-        IOobject::MUST_READ
-    )
-);
-
-IOdictionary speciesTransportDict
-(
-    IOobject
-    (
-        "transportProperties",
-        mesh.time().constant(),
-        mesh,
-        IOobject::MUST_READ
-    )
-);
-
 
 //now read the properties
 dimensionedScalar DVapourH2O
 (
     "DVapourH2O",
     //dimViscosity,
-    speciesTransportDict.get<dimensionedScalar>
+    waterDict.get<dimensionedScalar>
     (
         "DVapourH2O"
     )
 ); //Diffusivity for fricks law
 
-scalar PrtVapourH2O
+dimensionedScalar PrtVapourH2O
 (
-    speciesTransportDict.get<scalar>
+    "PrtVapourH2O",
+    dimless,
+    waterDict.get<scalar>
     (
         "PrtVapourH2O"
     )

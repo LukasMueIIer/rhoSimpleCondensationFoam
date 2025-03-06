@@ -1,5 +1,11 @@
 # rhoSimpleCondensationFoam
 A solver that is built upon rhoSimpleFoam.
+
+WARNING DEPRECATED AND DEAD
+The necessary modifications were not deamed worth the required time. The project is switched over to a 
+solver based on rhoReactingFoam, since its signifficantly closer to what we want and
+with local time stepping (LTS) we will be able to get "cost efficient" steady state solutions.
+
 The goal is to obtain the capability to simulate the condensation of jet engine exhausts in the atmosphere.
 
 The approach is very "engineering" based. The goal is to have fast and reasonably accurate results.
